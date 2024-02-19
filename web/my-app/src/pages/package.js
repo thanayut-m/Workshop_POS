@@ -37,8 +37,8 @@ function Package() {
 
         <div className=" mt-5 w-full flex flex-row items-center pb-10 md:px-10 lg:px-0 md:flex-row md:gap-5  justify-center ">
           {Package.map((item, Index) => (
-            <div className="w-max bg-white md:w-60 lg:w-max ring-2 ring-yellow-500 rounded-xl md:p-2 lg:p-5 p-5 drop-shadow-md">
-              <div class="w-full flex flex-col justify-center items-center">
+            <div key={Index} className="w-max bg-white ring-2 ring-yellow-500 md:w-60 lg:w-max  rounded-xl md:p-2 lg:p-5 p-5 drop-shadow-md">
+              <div class="w-full flex flex-col justify-center items-center text-[18px] font-bold">
                 {item.name} 
               </div>
               <div className="mt-3 w-full flex flex-col justify-center items-center">
