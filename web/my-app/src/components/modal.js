@@ -16,7 +16,7 @@ function Modal(props) {
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
                 {props.title}
               </h1>
-              <button
+              <button id="btnModalClose"
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"

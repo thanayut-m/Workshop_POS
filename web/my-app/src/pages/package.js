@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
 import Modal from "../components/modal";
+import Swal from "sweetalert2";
 
 function Package() {
   const [packages, setPackages] = useState([0]);
-  const [yourPackage,setYourPackage] = useState({});
+  const [yourPackage, setYourPackage] = useState({});
+  const [name, setName] = useState();
+  const [phone, setPhone] = useState();
 
   useEffect(() => {
     fetchData();
@@ -28,9 +31,47 @@ function Package() {
 
   const choosePackage = (item) => {
     setYourPackage(item);
-  }
+  };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
+    try {
+      Swal.fire({
+        title: "ยืนยันการสมัคร",
+        text: "โปรดยืนยันการสมัครใช้บริการ Package ของเรา",
+        icon: "question",
+        showCancelButton: true,
+        showConfirmButton: true
+      }).then((res) => {
+        if (res.isConfirmed) {
+          const payload = {
+            packageId: yourPackage.id,
+            name: name,
+            phone: phone,
+          };
+          axios
+            .post(config.api_path + "/package/memberRegister", payload)
+            .then((res) => {
+              if (res.data.message === "success") {
+                Swal.fire({
+                  title: "บันทึกข้อมูลแล้ว",
+                  text: "บันทึกข้อมูลการสมัครแล้ว",
+                  icon: "success",
+                  timer: 2000,
+                });
+                document.getElementById('btnModalClose').click();
+              }
+            })
+            .catch((err) => {
+              throw err.response.data;
+            });
+        }
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   return (
     <>
@@ -52,7 +93,8 @@ function Package() {
                     {parseInt(item.price).toLocaleString("th-TH")}&nbsp; บาท
                   </div>
                   <div className="mt-3">
-                    <button onClick={e => choosePackage(item)}
+                    <button
+                      onClick={(e) => choosePackage(item)}
                       className="btn btn-primary"
                       data-bs-toggle="modal"
                       data-bs-target="#modalRegister"
@@ -67,21 +109,33 @@ function Package() {
         </div>
       </div>
       <Modal id="modalRegister" title="สมัครใช้บริการ">
-        <form>
+        <form onSubmit={handleRegister}>
           <div>
-            <div className="alert alert-info">{yourPackage.name} ราคา {yourPackage.price} ต่อเดือน</div>
+            <div className="alert alert-info">
+              {yourPackage.name} ราคา {yourPackage.price} ต่อเดือน
+            </div>
           </div>
           <div>
             <label>ชื่อร้าน</label>
-            <input className="form-control" />
+            <input
+              className="form-control"
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="mt-3">
             <label>เบอร์โทร</label>
-            <input className="form-control" />
+            <input
+              className="form-control"
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
           <div className="mt-3">
-            <button className="btn btn-primary">ยืนยันการสมัคร
-            <i className="fa fa-arrow-right" style={{marginLeft: '10px'}}></i>
+            <button className="btn btn-primary" onClick={handleRegister}>
+              ยืนยันการสมัคร
+              <i
+                className="fa fa-arrow-right"
+                style={{ marginLeft: "10px" }}
+              ></i>
             </button>
           </div>
         </form>
