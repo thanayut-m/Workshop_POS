@@ -3,12 +3,14 @@ import axios from "axios";
 import config from "../config";
 import Modal from "../components/modal";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function Package() {
   const [packages, setPackages] = useState([0]);
   const [yourPackage, setYourPackage] = useState({});
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -42,7 +44,7 @@ function Package() {
         text: "โปรดยืนยันการสมัครใช้บริการ Package ของเรา",
         icon: "question",
         showCancelButton: true,
-        showConfirmButton: true
+        showConfirmButton: true,
       }).then((res) => {
         if (res.isConfirmed) {
           const payload = {
@@ -60,7 +62,8 @@ function Package() {
                   icon: "success",
                   timer: 2000,
                 });
-                document.getElementById('btnModalClose').click();
+                document.getElementById("btnModalClose").click();
+                navigate('/login');
               }
             })
             .catch((err) => {
@@ -69,7 +72,12 @@ function Package() {
         }
       });
     } catch (e) {
-      console.log(e.message);
+      //console.log(e.message);
+      Swal.fire({
+        title: 'Error',
+        message: e.message,
+        icon: 'error'
+      })
     }
   };
 
@@ -80,8 +88,8 @@ function Package() {
 
         <div className="h5">Package for you</div>
         <div className="row">
-          {packages.map((item) => (
-            <div className="col-4">
+          {packages.map((item, index) => (
+            <div className="col-4" Key={index}>
               <div className="card">
                 <div className="card-body text-center">
                   <div className=" h4 text-success">{item.name}</div>
