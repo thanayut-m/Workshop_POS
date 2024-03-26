@@ -10,6 +10,7 @@ function Package() {
   const [yourPackage, setYourPackage] = useState({});
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function Package() {
             packageId: yourPackage.id,
             name: name,
             phone: phone,
+            password: password,
           };
           axios
             .post(config.api_path + "/package/memberRegister", payload)
@@ -63,7 +65,7 @@ function Package() {
                   timer: 2000,
                 });
                 document.getElementById("btnModalClose").click();
-                navigate('/login');
+                navigate("/login");
               }
             })
             .catch((err) => {
@@ -74,10 +76,10 @@ function Package() {
     } catch (e) {
       //console.log(e.message);
       Swal.fire({
-        title: 'Error',
+        title: "Error",
         message: e.message,
-        icon: 'error'
-      })
+        icon: "error",
+      });
     }
   };
 
@@ -128,6 +130,14 @@ function Package() {
             <input
               className="form-control"
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="mt-3">
+            <label>รหัสผ่าน</label>
+            <input
+              type="password"
+              className="form-control"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="mt-3">

@@ -16,6 +16,9 @@ const MemberModel = conn.define("menber", {
   phone: {
     type: DataTypes.STRING(255),
   },
+  password: {
+    type: DataTypes.STRING(255),
+  }
 });
-// MemberModel.sync({alter: true});
+//MemberModel.sync({alter: true});
 module.exports = MemberModel;
