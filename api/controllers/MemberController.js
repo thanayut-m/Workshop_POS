@@ -1,6 +1,8 @@
 const express = require("express");
 const MemberModel = require("../models/MemberModel");
 const app = express();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 app.post('/member/signin', async (req, res) => {
   try {
@@ -12,11 +14,12 @@ app.post('/member/signin', async (req, res) => {
     });
 
     if (member.length > 0) {
-      res.send({ id: member[0].id, message: "success" });
+      let token = jwt.sign({id: member[0].id}, process.env.secret);
+      return res.send({ token: token, message: "success" });
     }
-    res.send({status: 401, message: "not found" });
+    return res.send({message: "not found"});
   } catch (e) {
-    res.send({status: 500, message: e.message });
+    return res.send({message: e});
   }
 });
 
