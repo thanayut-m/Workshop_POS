@@ -7,3 +7,4 @@ const sequelize = new Sequelize('db_workshop_pos', 'postgres', '$TnySql001!!', {
   });
 
   module.exports = sequelize;
+
