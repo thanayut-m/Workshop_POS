@@ -59,12 +59,12 @@ function Login() {
         <div className="card-body">
           <div className="mt-3">
             <label>Phone</label>
-            <input onChange={e => setPhone(e.target.value)} className="form-control" />
+            <input onChange={e => setPhone(e.target.value)} className="form-control mt-2" />
           </div>
 
           <div className="mt-3">
             <label>Password</label>
-            <input onChange={e => setPassword(e.target.value)} type="password" className="form-control" />
+            <input onChange={e => setPassword(e.target.value)} type="password" className="form-control mt-2" />
           </div>
           <div className="mt-3">
             <button onClick={handleSignIn} className="btn btn-primary">
