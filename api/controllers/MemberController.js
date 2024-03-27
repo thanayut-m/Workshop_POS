@@ -18,10 +18,10 @@ app.post('/member/signin', async (req, res) => {
       res.send({ token: token, message: "success" });
     }
     res.statusCode = 401;
-    res.send({message: "not found"});
+    return res.send({message: "not found"});
   } catch (e) { 
     res.statusCode = 500;
-    res.send({message: e});
+    return res.send({message: e});
   }
 });
 
