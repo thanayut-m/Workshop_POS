@@ -9,6 +9,9 @@ const MemberModel = conn.define("member", {
   packageId: {
     type: DataTypes.BIGINT,
   },
+  username: {
+    type: DataTypes.STRING(255),
+  },
   name: {
     type: DataTypes.STRING(255),
   },
