@@ -15,8 +15,7 @@ module.exports = {
           next();
         }
       } catch (e) {
-        res.statusCode = 401;
-        return res.send("authorize fail");
+
       }
     } else {
       res.statusCode = 401;
