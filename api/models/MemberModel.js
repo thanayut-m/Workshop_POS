@@ -1,6 +1,5 @@
 const conn = require("../connect");
 const { DataType, DataTypes } = require("sequelize");
-
 const MemberModel = conn.define("member", {
   id: {
     type: DataTypes.BIGINT,

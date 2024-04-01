@@ -16,6 +16,7 @@ function Sidebar() {
       axios.get(config.api_path + '/member/info' ,config.headers).then(res =>{
         if (res.data.message === 'success'){
           setMemberName(res.data.result.name);
+          setPackageName(res.data.result.package.name);
         }
       }).catch(err => {
         throw err.response.data;
@@ -56,7 +57,7 @@ function Sidebar() {
             </div>
             <div className="info text-white">
               <div>{memberName}</div>
-              <div>{packageName}</div>
+              <div>Package: {packageName}</div>
             </div>
           </div>
 

@@ -3,6 +3,7 @@ const MemberModel = require("../models/MemberModel");
 const app = express();
 const jwt = require('jsonwebtoken');
 const Server = require("./Server");
+const PackageModel = require("../models/PackageModel");
 require('dotenv').config();
 
 app.post('/member/signin', async (req, res) => {
@@ -28,9 +29,15 @@ app.post('/member/signin', async (req, res) => {
 
 app.get('/member/info' , async (req,res) => {
   try {
+    MemberModel.belongsTo(PackageModel);
+    
     const payload = jwt.decode(Server.getToken(req));
     const member = await MemberModel.findByPk(payload.id,{
-      attributes: ['id','name']
+      attributes: ['id','name'],
+      include: [
+        {model: PackageModel,
+          attributes: ['name']}
+      ]
     })
     res.send({result: member , message: 'success'});
   } catch (e){
