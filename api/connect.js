@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('db_workshop_pos', 'postgres', '$TnySql001!!', {
-    host: 'localhost',
-    dialect: 'postgres',
+const sequelize = new Sequelize('db_workshop_pos', 'sa', '$TnySql001!!', {
+    host: '26.211.201.45',
+    dialect: 'mssql',
     logging: false
   });
 

@@ -1,7 +1,7 @@
 const conn = require("../connect");
 const { DataType, DataTypes } = require("sequelize");
 
-const MemberModel = conn.define("menber", {
+const MemberModel = conn.define("member", {
   id: {
     type: DataTypes.BIGINT,
     primaryKey: true,
@@ -20,5 +20,5 @@ const MemberModel = conn.define("menber", {
     type: DataTypes.STRING(255),
   }
 });
-//MemberModel.sync({alter: true});
+MemberModel.sync({alter: true});
 module.exports = MemberModel;

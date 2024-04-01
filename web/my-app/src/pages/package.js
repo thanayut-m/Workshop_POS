@@ -134,7 +134,7 @@ function Package() {
           </div>
           <div className="mt-3">
             <label>รหัสผ่าน</label>
-            <input
+            <input  
               type="password"
               className="form-control"
               onChange={(e) => setPassword(e.target.value)}
