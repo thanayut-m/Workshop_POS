@@ -57,7 +57,7 @@ function Sidebar() {
             </div>
             <div className="info text-white">
               <div>{memberName}</div>
-              <div>Package: {packageName}</div>
+              <div>Package:{packageName}</div>
             </div>
           </div>
 

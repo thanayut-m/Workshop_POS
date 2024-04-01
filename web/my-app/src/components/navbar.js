@@ -1,4 +1,24 @@
+import Swal from "sweetalert2";
+import config from "../config";
+import { useNavigate } from 'react-router-dom';
+
 function Navbar() {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    Swal.fire({
+      title: 'sign out',
+      text: 'ยืนยันการออกจากระบบ',
+      icon: 'question',
+      showCancelButton : true,
+      showConfirmButton : true
+    }).then(res => {
+      if (res.isConfirmed){
+        localStorage.removeItem(config.token_name)
+        navigate('/login');
+      }
+    })
+  }
+
   return (
     <>
       {/* Navbar */}
@@ -16,7 +36,7 @@ function Navbar() {
               <i className="fa fa-user mr-2"></i>
               Profile
             </button>
-            <button className="btn btn-danger">
+            <button onClick={handleSignOut} className="btn btn-danger">
               <i className="fa fa-user mr-2"></i>
               Sign Out
             </button>

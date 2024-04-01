@@ -30,7 +30,6 @@ app.post('/member/signin', async (req, res) => {
 app.get('/member/info',service.isLogin, async (req,res) => {
   try {
     MemberModel.belongsTo(PackageModel);
-
     const payload = jwt.decode(service.getToken(req));
     const member = await MemberModel.findByPk(payload.id,{
       attributes: ['id','name'],
@@ -45,7 +44,4 @@ app.get('/member/info',service.isLogin, async (req,res) => {
     return res.send({message: e.message});
   }
 })
-
-
-
 module.exports = app;
