@@ -43,10 +43,13 @@ app.get("/member/info", service.isLogin, async (req, res) => {
   }
 });
 
-app.put('/member/changeProfile', service.isLogin, async(req,res ,next) => {
+app.put('/member/changeProfile', service.isLogin, async(req,res ) => {
   try {
     const memberId = service.getMemberId(req);
-    const result = await MemberModel.update(re.body, {
+    const payload = {
+      name : req.body.memberName
+    }
+    const result = await MemberModel.update(payload , {
       where: {
         id: memberId
       }

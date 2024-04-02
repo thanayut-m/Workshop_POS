@@ -47,7 +47,7 @@ function Navbar() {
 
   const handleChangeProfile = async () => {
     try {
-      const url = config.api_path + "member/changeProfile";
+      const url = config.api_path + "/member/changeProfile";
       const payload = { memberName: memberName };
       await axios
         .put(url, payload, config.headers())
