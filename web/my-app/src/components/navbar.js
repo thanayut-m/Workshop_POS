@@ -26,7 +26,7 @@ function Navbar() {
 
   const handleEditProfile = async () => {
     try {
-      await axios.get(config.api_path + '/member/info' ,config.headers).then(res =>{
+      await axios.get(config.api_path + '/member/info' ,config.headers()).then(res =>{
         if (res.data.message === 'success'){
           setMemberName(res.data.result.name);
         }
