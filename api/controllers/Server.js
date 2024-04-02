@@ -24,4 +24,9 @@ module.exports = {
       return res.send("authorize fail");
     }
   },
+  getMemberId: async (req) => {
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const payload = jwt.decode(token);
+    return payload.id;
+  }
 };

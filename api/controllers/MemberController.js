@@ -42,4 +42,20 @@ app.get("/member/info", service.isLogin, async (req, res) => {
     return res.send({ message: e.message });
   }
 });
+
+app.put('/member/changeProfile', service.isLogin, async(req,res ,next) => {
+  try {
+    const memberId = service.getMemberId(req);
+    const result = await MemberModel.update(re.body, {
+      where: {
+        id: memberId
+      }
+    });
+    res.send({message: 'success' , result: result});
+  } catch (e) {
+    res.statusCode = 500;
+    return res.send({message: e.message});
+  }
+})
+
 module.exports = app;
