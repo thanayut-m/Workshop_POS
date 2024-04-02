@@ -2,7 +2,7 @@ const express = require("express");
 const MemberModel = require("../models/MemberModel");
 const app = express();
 const jwt = require('jsonwebtoken');
-const service = require("./Server");
+const service = require("./server");
 const PackageModel = require("../models/PackageModel");
 require('dotenv').config();
 
