@@ -1,12 +1,12 @@
 const express = require("express");
 const MemberModel = require("../models/MemberModel");
 const app = express();
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const service = require("./server");
 const PackageModel = require("../models/PackageModel");
-require('dotenv').config();
+require("dotenv").config();
 
-app.post('/member/signin', async (req, res) => {
+app.post("/member/signin", async (req, res) => {
   try {
     const member = await MemberModel.findAll({
       where: {
@@ -16,32 +16,30 @@ app.post('/member/signin', async (req, res) => {
     });
 
     if (member.length > 0) {
-      let token = jwt.sign({id: member[0].id}, process.env.secret);
+      let token = jwt.sign({ id: member[0].id }, process.env.secret);
       res.send({ token: token, message: "success" });
+    } else {
+      res.statusCode = 401;
+      res.send({ message: "not found" });
     }
-    res.statusCode = 401;
-    return res.send({message: "not found"});
-  } catch (e) { 
+  } catch (e) {
     res.statusCode = 500;
-    return res.send({message: e});
+    return res.send({ message: e.message });
   }
 });
 
-app.get('/member/info',service.isLogin, async (req,res) => {
+app.get("/member/info", service.isLogin, async (req, res) => {
   try {
     MemberModel.belongsTo(PackageModel);
     const payload = jwt.decode(service.getToken(req));
-    const member = await MemberModel.findByPk(payload.id,{
-      attributes: ['id','name'],
-      include: [ 
-        {model: PackageModel,
-          attributes: ['name']}
-      ]
-    })
-    res.send({result: member , message: 'success'});
-  } catch (e){
+    const member = await MemberModel.findByPk(payload.id, {
+      attributes: ["id", "name"],
+      include: [{ model: PackageModel, attributes: ["name"] }],
+    });
+    res.send({ result: member, message: "success" });
+  } catch (e) {
     res.statusCode = 500;
-    return res.send({message: e.message});
+    return res.send({ message: e.message });
   }
-})
+});
 module.exports = app;

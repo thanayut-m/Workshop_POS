@@ -9,7 +9,7 @@ function Sidebar() {
 
    useEffect(() =>{
     fetchData();
-   })
+   }, [])
    
    const fetchData = async () => {
     try {
