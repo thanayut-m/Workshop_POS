@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import config from '../config';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   const [memberName, setMemberName] = useState ();
@@ -87,20 +88,20 @@ function Sidebar() {
               data-accordion="false"
             >
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <Link to="/home" className="nav-link">
                   <i className="nav-icon fas fa-th"></i>
                   <p>
-                    Dashbaord
+                    Dashboard
                   </p>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <Link to="/product" className="nav-link">
                   <i className="nav-icon fas fa-box"></i>
                   <p>
                     สินค้า
                   </p>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
