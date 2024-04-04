@@ -40,4 +40,19 @@ app.delete('/product/delete/:id', service.isLogin,async(req,res) => {
     }
 })
 
+app.post('/product/update' ,service.isLogin,async(req,res) => {
+    try {
+        const result = await ProductModel.update(req.body, {
+            where: {
+                id: req.body.id
+            }
+        })
+        
+        res.send({result: result, message: 'success'})
+    }catch (e) {
+        res.statusCode = 500 ;
+        return res.send({message: e.message});
+    }
+})
+
 module.exports = app;

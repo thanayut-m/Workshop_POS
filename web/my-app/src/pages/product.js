@@ -52,8 +52,13 @@ function Product() {
     e.preventDefault();
 
     try {
+        let url = config.api_path + '/product/insert';
+        if (product.id !== undefined) {
+            url = config.api_path + '/product/update';
+        }
+
       await axios
-        .post(config.api_path + "/product/insert", product, config.headers())
+        .post(url, product, config.headers())
         .then((res) => {
           if (res.data.message === "success") {
             Swal.fire({
@@ -82,35 +87,41 @@ function Product() {
 
   const handleDelete = (item) => {
     Swal.fire({
-        title: 'ลบข้อมูล',
-        text: 'ยืนยันการลบข้อมูลออกจากระบบ',
-        icon: 'question',
-        showCancelButton: true,
-        showConfirmButton: true
-    }).then(async res => {
-        if (res.isConfirmed){
-            try {
-                await axios.delete(config.api_path +'/product/delete/' + item.id ,config.headers()).then((res) => {
-                    if (res.data.message === 'success') {
-                       Swal.fire({
-                        title: 'ลบข้อมูล',
-                        text: 'ลบข้อมูลสำเร็จ',
-                        icon: 'success',
-                        timer: 2000
-                       })
-                        fetchData();
-                    }
-                })
-            } catch (e) {
-              Swal.fire({
-                title: "error",
-                text: e.message,
-                icon: "error",
-              });
-            }
+      title: "ลบข้อมูล",
+      text: "ยืนยันการลบข้อมูลออกจากระบบ",
+      icon: "question",
+      showCancelButton: true,
+      showConfirmButton: true,
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        try {
+          await axios
+            .delete(
+              config.api_path + "/product/delete/" + item.id,
+              config.headers()
+            )
+            .then((res) => {
+              if (res.data.message === "success") {
+                Swal.fire({
+                  title: "ลบข้อมูล",
+                  text: "ลบข้อมูลสำเร็จ",
+                  icon: "success",
+                  timer: 2000,
+                });
+                fetchData();
+              }
+            });
+        } catch (e) {
+          Swal.fire({
+            title: "error",
+            text: e.message,
+            icon: "error",
+          });
         }
-    })
+      }
+    });
   };
+
   return (
     <>
       <Template>
@@ -154,11 +165,16 @@ function Product() {
                         </td>
                         <td>{item.detail}</td>
                         <td className="text-center">
-                          <button className="btn btn-info mr-2">
+                          <button
+                            onClick={e => setProduct(item)}
+                            data-toggle="modal"
+                            data-target="#modelProduct"
+                            className="btn btn-info mr-2"
+                          >
                             <i className="fa fa-pencil" />
                           </button>
                           <button
-                            onClick={e => handleDelete(item)}
+                            onClick={(e) => handleDelete(item)}
                             className="btn btn-danger"
                           >
                             <i className="fa fa-times"></i>
