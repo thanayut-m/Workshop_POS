@@ -25,4 +25,19 @@ app.get('/product/list', service.isLogin ,async (req,res) => {
     }
 })
 
+app.delete('/product/delete/:id', service.isLogin,async(req,res) => {
+    try {
+        const result = await ProductModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.send({result: result, message: 'success'})
+    } catch (e) {
+        res.statusCode = 500 ;
+        return res.send({message: e.message});
+    }
+})
+
 module.exports = app;
