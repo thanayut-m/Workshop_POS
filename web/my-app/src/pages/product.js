@@ -31,6 +31,16 @@ function Product() {
     }
   };
 
+  const clearForm = () => {
+    setProduct({
+      name: "",
+      detail: "",
+      cost: "",
+      price: "",
+      barcode: ''
+    });
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -43,17 +53,13 @@ function Product() {
               title: "บันทึกข้อมูล",
               text: "บันทึกข้อมูลสินค้าแล้ว",
               icon: "success",
-              timer: 2000
-            })
+              timer: 2000,
+            });
 
             fetchData();
-            setProduct({
-                name: '',
-                detail: '',
-                cost: '',
-                price: ''
-            });
-            document.getElementById('btnModalClose').click();
+            clearForm();
+
+            document.getElementById("btnModalClose").click();
           }
         })
         .catch((err) => {
@@ -76,6 +82,7 @@ function Product() {
           </div>
           <div className="card-body">
             <button
+              onClick={clearForm}
               data-toggle="modal"
               data-target="#modelProduct"
               className="btn btn-primary"
@@ -92,27 +99,33 @@ function Product() {
                   <th className="text-right">ราคาจำหน่าย</th>
                   <th className="text-right">ราคาทุน</th>
                   <th>รายละเอียด</th>
-                  <th width='150px'></th>
+                  <th width="150px"></th>
                 </tr>
               </thead>
               <tbody>
-                {products.length > 0 ? products.map(item =>
-                <tr>
-                  <td>{item.barcode}</td>
-                  <td>{item.name}</td>
-                  <td  className="text-right">{parseInt(item.cost).toLocaleString("th-TH")}</td>
-                  <td  className="text-right">{parseInt(item.price).toLocaleString("th-TH")}</td>
-                  <td>{item.detail}</td>
-                  <td className="text-center">
-                    <button className="btn btn-info mr-2">
-                        <i className="fa fa-pencil" />
-                    </button>
-                    <button className="btn btn-danger">
-                        <i className="fa fa-times"></i>
-                    </button>
-                  </td>
-                </tr>
-                ): ''}
+                {products.length > 0
+                  ? products.map((item) => (
+                      <tr>
+                        <td>{item.barcode}</td>
+                        <td>{item.name}</td>
+                        <td className="text-right">
+                          {parseInt(item.cost).toLocaleString("th-TH")}
+                        </td>
+                        <td className="text-right">
+                          {parseInt(item.price).toLocaleString("th-TH")}
+                        </td>
+                        <td>{item.detail}</td>
+                        <td className="text-center">
+                          <button className="btn btn-info mr-2">
+                            <i className="fa fa-pencil" />
+                          </button>
+                          <button className="btn btn-danger">
+                            <i className="fa fa-times"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : ""}
               </tbody>
             </table>
           </div>
@@ -124,6 +137,7 @@ function Product() {
             <div className="mt-3 col-3">
               <label>barcode</label>
               <input
+                value={product.barcode}
                 onChange={(e) =>
                   setProduct({ ...product, barcode: e.target.value })
                 }
@@ -133,6 +147,7 @@ function Product() {
             <div className="mt-3 col-9">
               <label>ชื่อสินค้า</label>
               <input
+                value={product.name}
                 onChange={(e) =>
                   setProduct({ ...product, name: e.target.value })
                 }
@@ -142,6 +157,7 @@ function Product() {
             <div className="mt-3 col-2">
               <label>ราคาจำหน่าย</label>
               <input
+                value={product.price}
                 onChange={(e) =>
                   setProduct({ ...product, price: e.target.value })
                 }
@@ -151,6 +167,7 @@ function Product() {
             <div className="mt-3 col-2">
               <label>ราคาทุน</label>
               <input
+                value={product.cost}
                 onChange={(e) =>
                   setProduct({ ...product, cost: e.target.value })
                 }
@@ -160,6 +177,7 @@ function Product() {
             <div className="mt-3 col-8">
               <label>รายละเอียด</label>
               <input
+                value={product.detail}
                 onChange={(e) =>
                   setProduct({ ...product, detail: e.target.value })
                 }
