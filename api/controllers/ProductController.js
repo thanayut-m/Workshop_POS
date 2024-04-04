@@ -13,4 +13,16 @@ app.post('/product/insert', service.isLogin, async (req,res) => {
     }
 })
 
+app.get('/product/list', service.isLogin ,async (req,res) => {
+    try {
+        const results = await ProductModel.findAll({
+            order: [['id','DESC']]
+        });
+        res.send({results: results , message: 'success'});
+    } catch (e) {
+        res.statusCode = 500 ;
+        return res.send({message: e.message});
+    }
+})
+
 module.exports = app;

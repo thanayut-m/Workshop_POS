@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Template from "./../components/template";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -8,6 +8,28 @@ import Modal from "../components/modal";
 function Product() {
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      await axios
+        .get(config.api_path + "/product/list", config.headers())
+        .then((res) => {
+          if (res.data.message === "success") {
+            setProducts(res.data.results);
+          }
+        });
+    } catch (e) {
+      Swal.fire({
+        title: "error",
+        text: e.message,
+        icon: "error",
+      });
+    }
+  };
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -22,7 +44,16 @@ function Product() {
               text: "บันทึกข้อมูลสินค้าแล้ว",
               icon: "success",
               timer: 2000
+            })
+
+            fetchData();
+            setProduct({
+                name: '',
+                detail: '',
+                cost: '',
+                price: ''
             });
+            document.getElementById('btnModalClose').click();
           }
         })
         .catch((err) => {
@@ -52,10 +83,42 @@ function Product() {
               <i className="fa fa-plus mr-2" />
               เพิ่มรายการ
             </button>
+
+            <table className="mt-3 table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>barcode</th>
+                  <th>ชื่อสินค้า</th>
+                  <th className="text-right">ราคาจำหน่าย</th>
+                  <th className="text-right">ราคาทุน</th>
+                  <th>รายละเอียด</th>
+                  <th width='150px'></th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.length > 0 ? products.map(item =>
+                <tr>
+                  <td>{item.barcode}</td>
+                  <td>{item.name}</td>
+                  <td  className="text-right">{parseInt(item.cost).toLocaleString("th-TH")}</td>
+                  <td  className="text-right">{parseInt(item.price).toLocaleString("th-TH")}</td>
+                  <td>{item.detail}</td>
+                  <td className="text-center">
+                    <button className="btn btn-info mr-2">
+                        <i className="fa fa-pencil" />
+                    </button>
+                    <button className="btn btn-danger">
+                        <i className="fa fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+                ): ''}
+              </tbody>
+            </table>
           </div>
         </div>
       </Template>
-      <Modal id="modelProduct" title="เพิ่มรายการสินค้า" modalSize='modal-lg'>
+      <Modal id="modelProduct" title="เพิ่มรายการสินค้า" modalSize="modal-lg">
         <form onSubmit={handleSave}>
           <div className="row">
             <div className="mt-3 col-3">
