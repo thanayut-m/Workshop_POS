@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
-import Modal from "../components/modal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/modal";
 
 function Package() {
   const [packages, setPackages] = useState([0]);
@@ -90,8 +90,8 @@ function Package() {
 
         <div className="h5">Package for you</div>
         <div className="row">
-          {packages.map((item, index) => (
-            <div className="col-4" Key={index}>
+          {packages.map((item) => (
+            <div className="col-4">
               <div className="card">
                 <div className="card-body text-center">
                   <div className=" h4 text-success">{item.name}</div>
@@ -134,7 +134,7 @@ function Package() {
           </div>
           <div className="mt-3">
             <label>รหัสผ่าน</label>
-            <input  
+            <input
               type="password"
               className="form-control"
               onChange={(e) => setPassword(e.target.value)}
