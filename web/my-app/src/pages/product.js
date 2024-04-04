@@ -37,8 +37,15 @@ function Product() {
       detail: "",
       cost: "",
       price: "",
-      barcode: ''
+      barcode: "",
     });
+  };
+
+  const handleClose = () => {
+    const btns = document.getElementsByClassName("btnClose");
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].click();
+    }
   };
 
   const handleSave = async (e) => {
@@ -57,9 +64,8 @@ function Product() {
             });
 
             fetchData();
-            clearForm();
-
-            document.getElementById("btnModalClose").click();
+            //clearForm();
+            handleClose();
           }
         })
         .catch((err) => {

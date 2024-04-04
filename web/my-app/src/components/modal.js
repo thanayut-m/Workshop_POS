@@ -1,6 +1,6 @@
 function Modal(props) {
   let modalSize = 'modal-dialog';
-  
+
   if(props.modalSize){
     modalSize += ' ' + props.modalSize;
   }
@@ -24,7 +24,7 @@ function Modal(props) {
               </h1>
               <button id="btnModalClose"
                 type="button"
-                className="btn-close"
+                className="btn-close btnClose"
                 data-dismiss="modal"
                 aria-label="Close"
               ></button>
