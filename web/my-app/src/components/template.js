@@ -7,7 +7,7 @@ function Template(props) {
       <div className="wrapper">
         <Sidebar />
         <Navbar />
-        <div className="conrent-wrapper pt-3">
+        <div className="content-wrapper pt-3">
           <section className="content">{props.children}</section>
         </div>
       </div>
