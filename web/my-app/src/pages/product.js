@@ -140,7 +140,7 @@ function Product() {
               เพิ่มรายการ
             </button>
 
-            <table className="mt-3 table table-bordered table-striped">
+            <table className="mt-3 table table-bordered table-striped table-responsive-sm">
               <thead>
                 <tr>
                   <th>barcode</th>
@@ -191,7 +191,7 @@ function Product() {
       <Modal id="modelProduct" title="เพิ่มรายการสินค้า" modalSize="modal-lg">
         <form onSubmit={handleSave}>
           <div className="row">
-            <div className="mt-3 col-3">
+            <div className="mt-3 col-sm-3 ">
               <label>barcode</label>
               <input
                 value={product.barcode}
@@ -201,7 +201,7 @@ function Product() {
                 className="form-control"
               />
             </div>
-            <div className="mt-3 col-9">
+            <div className="mt-3 col-sm-9">
               <label>ชื่อสินค้า</label>
               <input
                 value={product.name}
@@ -211,7 +211,7 @@ function Product() {
                 className="form-control"
               />
             </div>
-            <div className="mt-3 col-2">
+            <div className="mt-3 col-sm-2">
               <label>ราคาจำหน่าย</label>
               <input
                 value={product.price}
@@ -221,7 +221,7 @@ function Product() {
                 className="form-control"
               />
             </div>
-            <div className="mt-3 col-2">
+            <div className="mt-3 col-sm-2">
               <label>ราคาทุน</label>
               <input
                 value={product.cost}
@@ -231,7 +231,7 @@ function Product() {
                 className="form-control"
               />
             </div>
-            <div className="mt-3 col-8">
+            <div className="mt-3 col-sm-8">
               <label>รายละเอียด</label>
               <input
                 value={product.detail}
