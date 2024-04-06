@@ -8,6 +8,8 @@ import Modal from "../components/modal";
 function Product() {
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
+  const [productImage,setProductImage] = useState({});
+  const [productImages,setProductImages] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -52,10 +54,10 @@ function Product() {
     e.preventDefault();
 
     try {
-        let url = config.api_path + '/product/insert';
-        if (product.id !== undefined) {
-            url = config.api_path + '/product/update';
-        }
+      let url = config.api_path + "/product/insert";
+      if (product.id !== undefined) {
+        url = config.api_path + "/product/update";
+      }
 
       await axios
         .post(url, product, config.headers())
@@ -148,7 +150,7 @@ function Product() {
                   <th className="text-right">ราคาจำหน่าย</th>
                   <th className="text-right">ราคาทุน</th>
                   <th>รายละเอียด</th>
-                  <th width="150px"></th>
+                  <th width="170px"></th>
                 </tr>
               </thead>
               <tbody>
@@ -166,7 +168,15 @@ function Product() {
                         <td>{item.detail}</td>
                         <td className="text-center">
                           <button
-                            onClick={e => setProduct(item)}
+                            onClick={(e) => setProduct(item)}
+                            className="btn btn-primary mr-2"
+                            data-toggle="modal"
+                            data-target="#modalProductImage"
+                          >
+                            <i className="fa fa-image"></i>
+                          </button>
+                          <button
+                            onClick={(e) => setProduct(item)}
                             data-toggle="modal"
                             data-target="#modelProduct"
                             className="btn btn-info mr-2"
@@ -249,6 +259,33 @@ function Product() {
             </button>
           </div>
         </form>
+      </Modal>
+
+      <Modal id="modalProductImage" title="ภาพสินค้า" modalSize="modal-lg">
+        <div className="row">
+          <div className="col-4">
+            <div>Barcode</div>
+            <input value={product.barcode} disabled className="form-control" />
+          </div>
+          <div className="col-8">
+            <div>ชื่อสินค้า</div>
+            <input value={product.name} disabled className="form-control" />
+          </div>
+          <div className="col-12 mt-3">
+            <div>รายละเอียด</div>
+            <input value={product.detail} disabled className="form-control" />
+          </div>
+          <div className="col-12">
+            <div>เลือกภาพสินค้า</div>
+            <input type="file" name="imageName" className="form-control" />
+          </div>
+        </div>
+        <div className="mt-3">
+          <button className="btn btn-primary">
+            <i className="fa fa-check mr-2"></i>
+            Upload And Save
+          </button>
+        </div>
       </Modal>
     </>
   );
