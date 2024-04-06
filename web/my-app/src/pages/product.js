@@ -124,6 +124,18 @@ function Product() {
     });
   };
 
+  const handleChangeFile = (files) => {
+    setProductImage(files[0]);
+  }
+
+  const handleUpload = async () => {
+    try {
+
+    } catch (e) {
+
+    }
+  }
+
   return (
     <>
       <Template>
@@ -277,7 +289,7 @@ function Product() {
           </div>
           <div className="col-12">
             <div>เลือกภาพสินค้า</div>
-            <input type="file" name="imageName" className="form-control" />
+            <input onChange={e => handleChangeFile(e.target.files)} type="file" name="imageName" className="form-control" />
           </div>
         </div>
         <div className="mt-3">
