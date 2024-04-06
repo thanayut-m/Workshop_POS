@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(require('./controllers/PackageController'));
 app.use(require('./controllers/MemberController'));
 app.use(require('./controllers/ProductController'));
+app.use(require('./controllers/ProductImageController'));
 
 
 app.listen(port, () => {
